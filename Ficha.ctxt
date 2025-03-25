@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=Ficha
+comment0.text=\n\ Write\ a\ description\ of\ class\ Ficha\ here.\n\n\ @author\ Julian\ Pasos\n\ @version\ 1\n
+comment1.params=cara1\ cara2
+comment1.target=Ficha(int,\ int)
+comment10.params=
+comment10.target=int\ getPuntosTotales()
+comment11.params=
+comment11.target=java.lang.String\ toString()
+comment2.params=
+comment2.target=int\ getCara1()
+comment3.params=
+comment3.target=int\ getCara2()
+comment4.params=
+comment4.target=void\ mostrar()
+comment5.params=
+comment5.target=void\ girar180()
+comment6.params=
+comment6.target=void\ girar90()
+comment7.params=
+comment7.target=void\ voltear()
+comment8.params=
+comment8.target=boolean\ esDoble()
+comment9.params=xPosition\ yPosition
+comment9.target=void\ mover(int,\ int)
+numComments=12
