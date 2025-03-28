@@ -117,7 +117,6 @@ public class Matador {
                     ArrayList<Ficha> fichaRobada = boneyard.repartirFichas(1);
                     jugadores.get(jugadorEnTurno).recibirFichas(fichaRobada);
                     System.out.println("Ficha Robada: " + fichaRobada.get(0).toString());
-                    jugadoresSinMovimientos = 0;
                 } else {
                     System.out.println("No hay más fichas en el boneyard, pasamos turno");
                     jugadoresSinMovimientos++;
@@ -125,8 +124,10 @@ public class Matador {
                     break;
                 }
             }
+
         }
             while (!fichaValida) {
+                jugadoresSinMovimientos = 0;
                 System.out.println("Que ficha desea colocar?\n");
                 ficha = sc.nextInt() - 1;
                 if (ficha < manoSize && ficha >= 0) {
