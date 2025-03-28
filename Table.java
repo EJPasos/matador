@@ -8,16 +8,41 @@ import java.util.ArrayList;
  */
 public class Table
 {
-    ArrayList<Ficha> fichasJugadas = new ArrayList<>();
+    ArrayList<Ficha> fichasJugadas;
 
     public Table()
     {
-
+    fichasJugadas = new ArrayList<>();
     }
 
     public void recibirFicha(Ficha ficha)
     {
         fichasJugadas.add(ficha);
+        System.out.println("Ficha recibida: " + ficha.toString());
+    }
+
+    public boolean puedeColocarse(Ficha ficha)
+    {
+        if (fichasJugadas.isEmpty())
+        {
+            return true;
+        }
+        else if (ficha.getCara1() + getLadoIzquierdo() == 7 || ficha.getCara2() + getLadoIzquierdo() == 7) {
+            return true;
+        }
+        else if (ficha.getCara1() + getLadoDerecho() == 7 || ficha.getCara2() + getLadoDerecho() == 7) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void mostrarFichasJugadas() {
+        for (Ficha ficha : fichasJugadas)
+        {
+            System.out.println(ficha.toString());
+        }
     }
 
     public int getLadoIzquierdo()
@@ -29,7 +54,5 @@ public class Table
     {
         return fichasJugadas.get(fichasJugadas.size() - 1).getCara2();
     }
-
-
     
 }
