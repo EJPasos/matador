@@ -13,8 +13,10 @@ public class Matador {
     private Table table;
     private int jugadorEnTurno;
     private int puntuacionMaxima;
+    private int jugadoresSinMovimientos;
 
     public Matador(int numJugadores, int puntuacionMaxima) {
+        jugadoresSinMovimientos = 0;
         jugadores = new ArrayList<>(numJugadores);
         for (int i = 0; i < numJugadores; i++) {
             jugadores.add(new Jugador("Jugador " + (i + 1)));
@@ -111,11 +113,21 @@ public class Matador {
             }
             if (!manoValida) {
                 System.out.println("No puede colocar ninguna ficha, robando ficha");
-                jugadores.get(jugadorEnTurno).recibirFichas(boneyard.repartirFichas(1));
+                if (boneyard.getNumFichas() > 0) {
+                    ArrayList<Ficha> fichaRobada = boneyard.repartirFichas(1);
+                    jugadores.get(jugadorEnTurno).recibirFichas(fichaRobada);
+                    System.out.println("Ficha Robada: " + fichaRobada.get(0).toString());
+                    jugadoresSinMovimientos = 0;
+                } else {
+                    System.out.println("No hay más fichas en el boneyard, pasamos turno");
+                    jugadoresSinMovimientos++;
+                    acabarTurno();
+                    break;
+                }
             }
         }
             while (!fichaValida) {
-                System.out.println("Que ficha desea colocar?");
+                System.out.println("Que ficha desea colocar?\n");
                 ficha = sc.nextInt() - 1;
                 if (ficha < manoSize && ficha >= 0) {
                     if (table.puedeColocarse(jugadores.get(jugadorEnTurno).getFicha(ficha))) {

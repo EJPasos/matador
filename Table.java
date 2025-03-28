@@ -17,8 +17,33 @@ public class Table
 
     public void recibirFicha(Ficha ficha)
     {
-        fichasJugadas.add(ficha);
-        System.out.println("Ficha recibida: " + ficha.toString());
+        if (fichasJugadas.isEmpty())
+        {
+            fichasJugadas.add(ficha);
+            System.out.println("Ficha recibida: " + ficha);
+        }
+        else if (ficha.getCara1() + getLadoIzquierdo() == 7)
+        {
+            ficha.girar180();
+            fichasJugadas.add(0, ficha);
+            System.out.println("Ficha recibida: " + ficha);
+        }
+        else if (ficha.getCara2() + getLadoIzquierdo() == 7)
+        {
+            fichasJugadas.add(0, ficha);
+            System.out.println("Ficha recibida: " + ficha);
+        }
+        else if (ficha.getCara1() + getLadoDerecho() == 7)
+        {
+            fichasJugadas.add(ficha);
+            System.out.println("Ficha recibida: " + ficha);
+        }
+        else if (ficha.getCara2() + getLadoDerecho() == 7)
+        {
+            ficha.girar180();
+            fichasJugadas.add(ficha);
+            System.out.println("Ficha recibida: " + ficha);
+        }
     }
 
     public boolean puedeColocarse(Ficha ficha)
