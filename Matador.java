@@ -98,13 +98,13 @@ public class Matador {
     public void jugarTurno(){
         int ficha = -1;
         Scanner sc = new Scanner(System.in);
-        int manoSize = jugadores.get(jugadorEnTurno).getManoSize();
         boolean fichaValida = false;
         boolean manoValida = false;
+        boolean turnoAcabado = false;
 
         System.out.println("Jugador " + jugadores.get(jugadorEnTurno).getNombre() + " con la mano:");
         jugadores.get(jugadorEnTurno).imprimirMano();
-        while (!manoValida) {
+        while (!manoValida && !turnoAcabado) {
             for (int i = 0; i < jugadores.get(jugadorEnTurno).getManoSize(); i++) {
                 if (table.puedeColocarse(jugadores.get(jugadorEnTurno).getFicha(i))) {
                     manoValida = true;
@@ -120,17 +120,18 @@ public class Matador {
                 } else {
                     System.out.println("No hay más fichas en el boneyard, pasamos turno");
                     jugadoresSinMovimientos++;
-                    acabarTurno();
+                    turnoAcabado = true;
+                    jugadores.get(jugadorEnTurno).hacerInvisible();
                     break;
                 }
             }
 
         }
-            while (!fichaValida) {
+            while (!fichaValida && !turnoAcabado) {
                 jugadoresSinMovimientos = 0;
                 System.out.println("Que ficha desea colocar?\n");
                 ficha = sc.nextInt() - 1;
-                if (ficha < manoSize && ficha >= 0) {
+                if (ficha < jugadores.get(jugadorEnTurno).getManoSize() && ficha >= 0) {
                     if (table.puedeColocarse(jugadores.get(jugadorEnTurno).getFicha(ficha))) {
                         fichaValida = true;
                     } else {
@@ -142,8 +143,9 @@ public class Matador {
             }
             table.recibirFicha(jugadores.get(jugadorEnTurno).colocarFicha(ficha));
             table.mostrarFichasJugadas();
+            jugadores.get(jugadorEnTurno).hacerInvisible();
 
-        acabarTurno();
+        turnoAcabado = true;
     }
 
     public void acabarTurno() {
@@ -157,15 +159,36 @@ public class Matador {
         return jugadores.get(jugadorEnTurno).tieneFichas();
     }
 
+    public void terminarRonda(){
+        for (Jugador jugador : jugadores) {
+            jugador.sumarPuntosEnMano();
+        }
+        System.out.println("Ronda terminada");
+        for (Jugador jugador : jugadores) {
+            System.out.println(jugador.getNombre() + " tiene " + jugador.getPuntuacion() + " puntos");
+        }
+    }
+
+    public int getJugadorAnterior(){
+        if (jugadorEnTurno == 0) {
+            return jugadores.size() - 1;
+        } else {
+            return jugadorEnTurno - 1;
+        }
+    }
+
     // main
     public static void main(String[] args){
             Matador matador = new Matador(4, 100);
             while (!matador.jugadorLlegoAPuntuacionMaxima()) {
                 matador.iniciarRonda();
-                while (matador.jugadorTieneFichas()) {
+
+                while (matador.jugadores.get(matador.getJugadorAnterior()).tieneFichas() || matador.jugadoresSinMovimientos < matador.jugadores.size()) {
                     matador.jugarTurno();
+                    matador.acabarTurno();
                 }
-                break;
+                matador.terminarRonda();
+
             }
 
     }

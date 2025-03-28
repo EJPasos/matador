@@ -47,6 +47,9 @@ public class Jugador {
         for (int i = 0; i < fichasRecibidas.size(); i++) {
             mano.add(fichasRecibidas.get(i));
         }
+        hacerInvisible();
+        acomodarFichas();
+        hacerVisible();
 
     }
 
@@ -100,6 +103,8 @@ public class Jugador {
     }
 
     public void imprimirMano() {
+        acomodarFichas();
+        hacerVisible();
         for (int i = 0; i < mano.size(); i++) {
             System.out.println(mano.get(i).toString());
         }
@@ -145,4 +150,23 @@ public class Jugador {
     public int getManoSize() {
         return mano.size();
     }
+
+    public void acomodarFichas() {
+        for (int i = 0; i < mano.size(); i++) {
+            mano.get(i).mover(70 + (i * 75), 650);
+        }
+    }
+
+    public void hacerVisible() {
+        for (int i = 0; i < mano.size(); i++) {
+            mano.get(i).mostrar();
+        }
+    }
+
+    public void hacerInvisible() {
+        for (int i = 0; i < mano.size(); i++) {
+            mano.get(i).ocultar();
+        }
+    }
+
 }

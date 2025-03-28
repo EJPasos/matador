@@ -332,6 +332,20 @@ public class CaraView {
         dibujar();
     }
 
+    public void erase() {
+        Contorno.makeInvisible();
+        Fondo.makeInvisible();
+        punto1.makeInvisible();
+        punto2.makeInvisible();
+        punto3.makeInvisible();
+        punto4.makeInvisible();
+        punto5.makeInvisible();
+        punto6.makeInvisible();
+        punto7.makeInvisible();
+        punto8.makeInvisible();
+        punto9.makeInvisible();
+    }
+
     public void flip() {
         faceUp = !faceUp;
         dibujar();

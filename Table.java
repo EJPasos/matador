@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Write a description of class Table here.
@@ -15,18 +16,29 @@ public class Table
     fichasJugadas = new ArrayList<>();
     }
 
-    public void recibirFicha(Ficha ficha)
-    {
+    public void recibirFicha(Ficha ficha) {
+        ficha.girar90();
         if (fichasJugadas.isEmpty())
         {
             fichasJugadas.add(ficha);
             System.out.println("Ficha recibida: " + ficha);
         }
-        else if (ficha.getCara1() + getLadoIzquierdo() == 7)
-        {
-            ficha.girar180();
-            fichasJugadas.add(0, ficha);
-            System.out.println("Ficha recibida: " + ficha);
+        else if(ficha.esDoble()) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("¿Desea colocar la ficha " + ficha + " a la izquierda o a la derecha?");
+            System.out.println("1. Izquierda");
+            System.out.println("2. Derecha");
+            int opcion = sc.nextInt();
+            if (opcion == 1)
+            {
+                fichasJugadas.add(0, ficha);
+                System.out.println("Ficha recibida: " + ficha);
+            }
+            else if (opcion == 2)
+            {
+                fichasJugadas.add(ficha);
+                System.out.println("Ficha recibida: " + ficha);
+            }
         }
         else if (ficha.getCara2() + getLadoIzquierdo() == 7)
         {
@@ -44,6 +56,13 @@ public class Table
             fichasJugadas.add(ficha);
             System.out.println("Ficha recibida: " + ficha);
         }
+        else if(ficha.getCara1() + getLadoIzquierdo() == 7)
+        {
+            ficha.girar180();
+            fichasJugadas.add(0, ficha);
+            System.out.println("Ficha recibida: " + ficha);
+        }
+        hacerVisible();
     }
 
     public boolean puedeColocarse(Ficha ficha)
@@ -56,6 +75,9 @@ public class Table
             return true;
         }
         else if (ficha.getCara1() + getLadoDerecho() == 7 || ficha.getCara2() + getLadoDerecho() == 7) {
+            return true;
+        }
+        else if (ficha.esDoble()) {
             return true;
         }
         else {
@@ -78,6 +100,38 @@ public class Table
     public int getLadoDerecho()
     {
         return fichasJugadas.get(fichasJugadas.size() - 1).getCara2();
+    }
+    public void acomodarFichas() {
+        for (final Ficha ficha : fichasJugadas) {
+            ficha.setHorizontal();
+        }
+        for (int i = 0; i < fichasJugadas.size(); i++) {
+            if (i < 13) {
+                fichasJugadas.get(i).mover(20 + i * 136, 20);
+            } else if (i < 16) {
+                fichasJugadas.get(i).girar90();
+                fichasJugadas.get(i).mover(1718, 90 + (i - 13) * 136);
+            } else if (i <= 28) {
+                fichasJugadas.get(i).girar180();
+                fichasJugadas.get(i).mover(1718 - (i - 16) * 136, 358);
+            }
+        }
+    }
+
+    public void hacerVisible() {
+        hacerInvisible();
+        acomodarFichas();
+        for (Ficha ficha : fichasJugadas)
+        {
+            ficha.mostrar();
+        }
+    }
+
+    public void hacerInvisible() {
+        for (Ficha ficha : fichasJugadas)
+        {
+            ficha.ocultar();
+        }
     }
     
 }

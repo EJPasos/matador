@@ -41,6 +41,11 @@ public class Ficha {
         }
     }
 
+    public void ocultar() {
+        caraView1.erase();
+        caraView2.erase();
+    }
+
     public void girar180() {
         int temp = caraView1.getValor();
         caraView1.setValor(caraView2.getValor());
@@ -49,6 +54,10 @@ public class Ficha {
 
     public void girar90() {
         esHorizontal = !esHorizontal;
+    }
+
+    public void setVertical() {
+        esHorizontal = false;
     }
 
     public void voltear() {
@@ -76,4 +85,7 @@ public class Ficha {
     }
 
 
+    public void setHorizontal() {
+        esHorizontal = true;
+    }
 }
