@@ -118,7 +118,6 @@ public class Table
     }
 
     public void hacerVisible() {
-        hacerInvisible();
         acomodarFichas();
         for (Ficha ficha : fichasJugadas)
         {

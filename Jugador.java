@@ -153,7 +153,7 @@ public class Jugador {
 
     public void acomodarFichas() {
         for (int i = 0; i < mano.size(); i++) {
-            mano.get(i).mover(70 + (i * 75), 650);
+            mano.get(i).mover(20 + (i * 75), 370);
         }
     }
 

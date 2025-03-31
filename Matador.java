@@ -81,6 +81,7 @@ public class Matador {
         boneyard = new BarajaDeFichas(6);
         boneyard.barajar();
         table = new Table();
+        jugadoresSinMovimientos = 0;
         for (Jugador jugador : jugadores) {
             jugador.borrarMano();
         }
@@ -200,6 +201,18 @@ public class Matador {
         return false;
     }
 
+    public void mostrarGanador() {
+        String ganador = "";
+        int puntuacionMinima = 1000;
+        for (Jugador jugador : jugadores) {
+            if (jugador.getPuntuacion() < puntuacionMinima) {
+                puntuacionMinima = jugador.getPuntuacion();
+                ganador = jugador.getNombre();
+            }
+        }
+        System.out.println("El ganador es: " + ganador );
+    }
+
     // main
     public static void main(String[] args){
             Matador matador = new Matador(4, 100);
@@ -209,10 +222,18 @@ public class Matador {
                 while (!matador.hayUnJugadorSinFichas() && matador.jugadoresSinMovimientos < matador.jugadores.size()) {
                     matador.jugarTurno();
                     matador.acabarTurno();
+                    if(matador.hayUnJugadorSinFichas()) {
+                        System.out.println("El jugador se quedo sin fichas");
+                    }
+                    else if(matador.jugadoresSinMovimientos == matador.jugadores.size()) {
+                        System.out.println("Ningun jugador puede jugar");
+                    }
                 }
                 matador.terminarRonda();
 
             }
+            System.out.println("Juego terminado");
+            matador.mostrarGanador();
 
     }
 }
