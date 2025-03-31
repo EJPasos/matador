@@ -108,12 +108,11 @@ public class Table
         for (int i = 0; i < fichasJugadas.size(); i++) {
             if (i < 13) {
                 fichasJugadas.get(i).mover(20 + i * 136, 20);
-            } else if (i < 16) {
-                fichasJugadas.get(i).girar90();
-                fichasJugadas.get(i).mover(1718, 90 + (i - 13) * 136);
+            } else if (i < 26) {
+                fichasJugadas.get(i).mover(20 + (i - 13) * 136, 110);
             } else if (i <= 28) {
-                fichasJugadas.get(i).girar180();
-                fichasJugadas.get(i).mover(1718 - (i - 16) * 136, 358);
+
+                fichasJugadas.get(i).mover(20 - (i - 26) * 136, 200);
             }
         }
     }

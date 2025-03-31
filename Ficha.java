@@ -73,7 +73,6 @@ public class Ficha {
     public void mover(int xPosition, int yPosition) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        mostrar();
     }
 
     public int getPuntosTotales() {
